@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Online voting system (live)</title>
+		 <script type="text/javascript" src="http://cloud.boltiot.com/static/js/boltCommands.js">
+         </script>
+		 <script type="text/javascript">
+        setKey('{{ApiKey}}','{{Name}}'); // Default line must be present in every code
+    </script>
+	</head>
+	
+	<body bgcolor="orange">
+		<br/>
+		<h2 style="text-align:center;color:green;">LIVE VOTING SYSTEM <b style="color:white;size:10px;">MADE USING BOLT IoT</b></h2>
+		<br/>
+		<hr style="color:white;"/>
+		<p style="color:white;">
+		<marquee>Votes are being counted and updated every 5 minutes for security purpose....</marquee>
+		<table border="1" align="center" cellpadding="10" cellspacing="10">
+			<tr>
+				<td align="center" id="bjpcolor">
+					<img src="bjp.jpg" width="400px" height="400px"/><br>
+					<button id="bjp" align="center" style="height:50px;width:75px">0</button>
+				</td>
+				<td align="center" id="congresscolor">
+					<img src="congress.jpg" width="400px" height="400px"/><br>
+					<button id="congress" align="center" style="height:50px;width:75px">0</button>
+				</td>
+			</tr>
+		</table>
+		<br/>
+		</p>
+		<p id='check' style="hidden;"></p>
+		<style>
+			#bjpcolor,#congresscolor{
+			background-color:red;
+			}
+		</style>
+		<p id="colorchange"></p>
+		<script>
+		setInterval(function () {
+		digitalRead(0,'check');	
+		if(document.getElementById('check').innerHTML == "Pin Val = 1")
+		{
+		count = parseInt(document.getElementById('bjp').innerHTML) + 1;
+		document.getElementById('bjp').innerHTML = count.toString();
+			if (parseInt(document.getElementById('bjp').innerHTML) > parseInt(document.getElementById('congress').innerHTML))
+			{
+			document.getElementById('colorchange').innerHTML='<style>#congresscolor{background-color:red;#bjpcolor{background-color:green;}</style>';
+			
+			}
+			else if(parseInt(document.getElementById('bjp').innerHTML) == parseInt(document.getElementById('congress').innerHTML))
+			{
+			document.getElementById('colorchange').innerHTML='<style>#bjpcolor,#congresscolor{background-color:green;}</style>';
+			}
+			else{
+			document.getElementById('colorchange').innerHTML='<style>#bjpcolor{background-color:red;}#congresscolor{background-color:green;}</style>';
+			}
+	
+		}
+		},100000);	
+		</script>
+	</body>
+</html>
